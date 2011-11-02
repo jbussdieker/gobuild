@@ -1,16 +1,15 @@
-filename = File.join(File.dirname(__FILE__), "Makefile")
-goroot = File.absolute_path(File.dirname(__FILE__))
-gobin = File.absolute_path(File.join(goroot, "..", "..", "bin"))
-Dir.mkdir(gobin)
-data = "all:\n"
-data << "\thg clone -r release.r60.3 https://go.googlecode.com/hg/ #{goroot}/hg\n"
-data << "\texport GOROOT=#{goroot}/hg;"
-  data << "export GOARCH=amd64;"
-  data << "export GOOS=linux;"
-  data << "export GOBIN=#{gobin};"
-  data << "cd #{goroot}/hg/src;"
-  data << "./all.bash\n"
-data << "install:\n"
+require 'erb'
 
-File.open(filename, 'w') {|f| f.write(data) }
+builddir = File.absolute_path(File.dirname(__FILE__))
+
+template_file = File.join(builddir, "Makefile.erb")
+make_file = File.join(builddir, "Makefile")
+goroot = builddir
+gobin = File.join(builddir, "..", "..", "bin")
+
+Dir.mkdir(gobin)
+
+template = ERB.new(File.read(template_file))
+result = template.result(binding)
+File.open(make_file, 'w') {|f| f.write(result) }
 

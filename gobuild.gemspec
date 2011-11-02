@@ -7,5 +7,6 @@ Gem::Specification.new do |s|
   s.email = "josh.bussdieker@moovweb.com"
   s.homepage = "http://github.com/jbussdieker/gobuild"
   s.extensions = ["ext/gobuild/extconf.rb"]
+  s.files = "ext/gobuild/Makefile.erb"
 end
 
