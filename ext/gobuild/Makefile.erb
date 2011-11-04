@@ -1,4 +1,4 @@
 all:
 	hg clone -u release.r60.3 https://go.googlecode.com/hg/ <%= goroot %>
-	export GOROOT=<%= goroot %>;export GOARCH=amd64;export GOOS=linux;export GOBIN=<%= gobin %>;cd <%= goroot %>/src;./all.bash
+	cd <%= goroot %>/src;./all.bash
 install:
